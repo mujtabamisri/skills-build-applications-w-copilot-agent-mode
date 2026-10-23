@@ -1,0 +1,64 @@
+:root {
+  font-family: 'Avenir Next', Avenir, 'Segoe UI', sans-serif;
+  color: #1e3028;
+  background: #f4f7f2;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --ink: #1e3028;
+  --forest: #153e32;
+  --leaf: #d7ec65;
+  --coral: #dd735d;
+  --line: #d7dfd5;
+}
+
+body { margin: 0; min-width: 320px; background: radial-gradient(ellipse at 90% 10%, #e8f1dc 0, transparent 34rem), #f4f7f2; color: var(--ink); }
+a { color: inherit; }
+.app-shell { min-height: 100vh; display: flex; flex-direction: column; }
+.site-header { background: var(--forest); color: #f8fbf4; }
+.header-inner { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+.brand { display: inline-flex; align-items: center; gap: .7rem; color: inherit; text-decoration: none; font-size: 1.2rem; white-space: nowrap; }
+.brand strong { color: var(--leaf); font-weight: 600; }
+.brand-mark { display: grid; width: 35px; aspect-ratio: 1; place-items: center; border-radius: 50%; background: var(--leaf); color: var(--forest); font-weight: 800; }
+.site-nav { display: flex; align-items: center; gap: .35rem; flex-wrap: wrap; }
+.site-nav a { padding: .55rem .8rem; border-radius: 3px; color: #f8fbf4; text-decoration: none; font-size: .94rem; }
+.site-nav a:hover, .site-nav a:focus-visible { background: #315b4c; outline: 2px solid var(--leaf); outline-offset: 2px; }
+.main-content { flex: 1; padding-top: 3.25rem; padding-bottom: 4rem; }
+.page-intro { max-width: 760px; margin-bottom: 2.4rem; }
+.page-intro h2 { margin: 0 0 .55rem; font: 600 2.4rem/1.1 Georgia, 'Times New Roman', serif; letter-spacing: 0; }
+.page-intro p:last-child { margin: 0; color: #5e7065; }
+.eyebrow { margin-bottom: .6rem; color: #657b25; font-size: .72rem; font-weight: 800; letter-spacing: .12em; }
+.entry-form, .lookup-form { margin-bottom: 2.5rem; padding: 1.4rem 0 1.6rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.entry-form h3, .data-section h3 { margin-bottom: 1.1rem; font: 600 1.25rem/1.2 Georgia, 'Times New Roman', serif; }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+.form-grid label, .lookup-form label { display: grid; gap: .4rem; font-size: .86rem; font-weight: 650; }
+.wide-field { grid-column: 1 / -1; }
+.form-control { border-color: #bdcbbd; border-radius: 3px; }
+.form-control:focus { border-color: #638b46; box-shadow: 0 0 0 .2rem #d7ec6580; }
+.btn-dark { --bs-btn-bg: var(--forest); --bs-btn-border-color: var(--forest); --bs-btn-hover-bg: #285642; --bs-btn-hover-border-color: #285642; border-radius: 3px; }
+.form-error { margin-bottom: .8rem; color: #9f352c; }
+.data-section { margin-top: 1.5rem; }
+.table { --bs-table-bg: transparent; --bs-table-border-color: var(--line); }
+.table thead th { color: #526358; font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; }
+.table th, .table td { padding: .9rem .65rem; }
+.standings-table tbody th { color: #577126; }
+.lookup-form { max-width: 620px; }
+.lookup-controls { display: flex; gap: .7rem; }
+.lookup-controls .form-control { flex: 1; }
+.workout-list { margin: 0; padding: 0; list-style: none; }
+.workout-list li { display: flex; justify-content: space-between; gap: 2rem; padding: 1.2rem 0; border-top: 1px solid var(--line); }
+.workout-list h3 { margin: 0 0 .35rem; font: 600 1.15rem/1.2 Georgia, 'Times New Roman', serif; }
+.workout-list p { margin: 0; color: #5e7065; }
+.workout-list .workout-meta { align-self: center; color: var(--forest); font-size: .88rem; text-align: right; white-space: nowrap; }
+.site-footer { padding: 1.2rem 0; background: #e5ece2; color: #526358; font-size: .86rem; }
+
+@media (max-width: 640px) {
+  .header-inner { align-items: flex-start; flex-direction: column; gap: .75rem; padding-top: 1rem; padding-bottom: 1rem; }
+  .site-nav { gap: .1rem; }
+  .site-nav a { padding: .45rem .55rem; }
+  .main-content { padding-top: 2.4rem; }
+  .page-intro h2 { font-size: 2rem; }
+  .form-grid { grid-template-columns: minmax(0, 1fr); }
+  .wide-field { grid-column: auto; }
+  .workout-list li { flex-direction: column; gap: .65rem; }
+  .workout-list .workout-meta { align-self: flex-start; text-align: left; white-space: normal; }
+}

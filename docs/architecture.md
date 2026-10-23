@@ -28,22 +28,40 @@ OctoFit Tracker is a three-tier application for a school fitness program. The st
 
 ## Implementation decisions
 
-Record your plan here before editing code.
+- **Presentation tier decision:** Use React components and the shared API client in `octofit-tracker/frontend/src` to display data from the backend. Each page should handle loading, empty, success, and error states. Error messages should be accessible through an element with `role="alert"`.
 
-- Presentation tier decision:
-- Logic tier decision:
-- Data tier decision:
-- Activity tracking approach:
-- Team management approach:
-- Leaderboard approach:
-- Workout suggestions approach:
+- **Logic tier decision:** Use Express and TypeScript routes/services in `octofit-tracker/backend/src` to implement the documented API contracts. Validate request data and return appropriate HTTP status codes instead of allowing invalid input to cause server errors.
+
+- **Data tier decision:** Use the existing Mongoose models and seed script to store and retrieve application data from MongoDB. Validate IDs and confirm that referenced users and teams exist before creating activity records.
+
+- **Activity tracking approach:** Implement activity listing and creation. Validate `userId`, `teamId`, `type`, and `minutes`. Store the referenced user and team, activity type, minutes, computed points, and occurrence time. Return a deliberate 4xx response for invalid IDs or missing references.
+
+- **Team management approach:** Implement team listing and creation. Preserve the submitted team name and mascot, include team members as required by the existing contract, and return HTTP 400 when the team name is missing.
+
+- **Leaderboard approach:** Calculate the total activity points for each team, sort teams from highest to lowest total, and return `teamName`, `totalPoints`, and a 1-based `rank` for each entry.
+
+- **Workout suggestions approach:** Find the user by email and use recent activity patterns or the user's goal to recommend relevant workouts. Include a reason for each recommendation, ensure the first suggestion matches the user's goal or recent activity, and return a deliberate 4xx response when the email does not match a user.
 
 ## Test plan
 
-Record the commands you run and what each failure means.
+Run the following commands and record the actual results. A failing test identifies behavior that needs investigation; it does not automatically mean the implementation is wrong.
 
-- Data-tier command: `npm run test:data --prefix octofit-tracker/backend`
-- API command: `npm run test:api --prefix octofit-tracker/backend`
-- Frontend command: `npm test --prefix octofit-tracker/frontend`
-- Backend build command: `npm run build --prefix octofit-tracker/backend`
-- Frontend build command: `npm run build --prefix octofit-tracker/frontend`
+- **Data-tier command:** `npm run test:data --prefix octofit-tracker/backend` — checks data models, persistence, and data-related behavior. Failures may indicate problems with schemas, references, or database operations.
+
+- **API command:** `npm run test:api --prefix octofit-tracker/backend` — checks API routes, request validation, response status codes, and returned data. Failures may indicate missing endpoints or incorrect API behavior.
+
+- **Frontend command:** `npm test --prefix octofit-tracker/frontend` — checks page behavior and API integration. The initial test output showed 15 failing tests in `tests/app.contract.test.tsx`. The pages displayed "Implementation pending" instead of the expected empty states and accessible error messages. Rerun this command after implementation and record the updated results.
+
+- **Backend build command:** `npm run build --prefix octofit-tracker/backend` — checks whether the backend TypeScript code compiles successfully.
+
+- **Frontend build command:** `npm run build --prefix octofit-tracker/frontend` — checks whether the frontend builds successfully.
+
+- **Test execution order:** Run the baseline tests before editing code. Implement and test the data tier first, followed by the API and frontend. Finish by running all tests and both build commands again. Record the command, result, and any remaining failures after each run.
+
+### Baseline test results
+
+- **Data tests:** 1 passed, 4 failed. The User, Team, Activity, and Workout model validation rules need implementation.
+- **API tests:** 4 failed. Activity and team validation return HTTP 501 instead of HTTP 400, the leaderboard returns an empty list, and workout suggestions are missing the expected `reason`.
+- **Frontend tests:** 15 failed in the initial run. The pages display "Implementation pending" instead of the expected page content and error states.
+
+These results were collected before implementation. Rerun the tests after making changes and update the results.
